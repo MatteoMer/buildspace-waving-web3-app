@@ -24,7 +24,7 @@ const main = async () => {
     
     waveCount = await waveContract.getTotalWaves()
 
-    waveTxn = await waveContract.connect(randomPerson).wave('Coucou')
+    waveTxn = await waveContract.wave('Coucou')
     await waveTxn.wait()
 
     waveCount = await waveContract.getTotalWaves()
