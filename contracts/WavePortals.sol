@@ -5,28 +5,39 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 contract WavePortal {
-    uint256 totalWaves;
-    mapping(address => uint256) totalWavesByAddress;
 
-    constructor() {
-        console.log("Here's a screenshot for you buildspace :D");
+    struct Wave {
+        address addr;
+        string message;
+        uint256 timestamp;
     }
 
-    function wave() public {
+    uint256 totalWaves;
+    Wave[] waves;
+    uint256 prize = 0.0001 ether;
+
+    event NewWave(address indexed _from, string _message, uint256 _timestamp);
+
+    constructor() payable {
+        console.log("Contract is up and running");
+    }
+
+    function wave(string memory _message) public {
         totalWaves += 1;
-        totalWavesByAddress[msg.sender] += 1;
-        console.log("Oh! %s has waved!", msg.sender);
+        waves.push(Wave(msg.sender, _message, block.timestamp));
+        console.log("%s", _message);
+        emit NewWave(msg.sender, _message, block.timestamp);
+
+        require(prize <= address(this).balance, "Not enough money in the balance to give a prize");
+        (bool success, ) = (msg.sender).call{value: prize}("");
+        require(success, "Failed to send the prize");
+    }
+
+    function getAllWaves() public view returns (Wave[] memory){
+        return waves;
     }
 
     function getTotalWaves() public view returns (uint256) {
-        console.log("We have %d total waves! Impressive !", totalWaves);
         return totalWaves;
     }
-
-    function getTotalWavesByAddress(address _addr) public view returns (uint256) {
-        console.log("%s has waved %d times to me, wow !", _addr, totalWavesByAddress[_addr]);
-        return totalWavesByAddress[_addr];
-    }
-
-
 }
