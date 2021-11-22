@@ -17,5 +17,4 @@ typechain
 #Hardhat files
 cache
 artifacts
-hardhat.config.js
 .DS_Store
