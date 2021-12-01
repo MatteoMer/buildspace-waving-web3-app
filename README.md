@@ -1,6 +1,5 @@
-# Basic Sample Hardhat Project
+# Basic Solidity project for buildspace : WavePortal
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+The basic usage of this contract is to allow the user to send a transaction to the blockchain to wave at the owner of the contract (and leave a message)
 
-Try running some of the following tasks:
-
+You can see the front-end part of this project [here](https://github.com/MatteoMer/buildspace-waving-web3-app-frontend)
